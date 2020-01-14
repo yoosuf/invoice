@@ -20,8 +20,7 @@ class CreateStatementsTable extends Migration
                     ->references('id')->on('accounts')
                     ->onDelete('cascade');
 
-            $table->enum('category', ['invoice', 'estimate', 'bill', 'recurring']);
-            $table->string('number');
+            $table->enum('category', ['invoice', 'quotes', 'credit_note','bill', 'purchase_order','recurring']);
 
             $table->unsignedBigInteger('language_id');
             $table->foreign('language_id')
@@ -38,12 +37,12 @@ class CreateStatementsTable extends Migration
                     ->references('id')->on('contacts')
                     ->onDelete('cascade');
 
+            $table->string('number');
             $table->date('date');
             $table->string('due');
             $table->date('due_date');
-
-            $table->enum('schedule', ['yearly', 'quarterly', 'monthly', 'weekly', 'daily', 'other']);
-            $table->string('schedule_other');
+            $table->enum('status', ['draft', 'submitted', 'authorised', 'paid']);
+            $table->enum('schedule', ['yearly', 'quarterly', 'monthly', 'weekly', 'daily']);
             $table->boolean('send')->default(false);
             $table->string('po_number');
             $table->string('sub_total');

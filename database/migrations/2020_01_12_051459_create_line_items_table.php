@@ -23,7 +23,7 @@ class CreateLineItemsTable extends Migration
             $table->mediumText('description');
             $table->string('quantity');
             $table->string('rate');
-            $table->string('unit');
+            $table->enum('unit', ['kg']);
             $table->string('custom_unit');
             $table->string('amount');
             $table->timestamps();

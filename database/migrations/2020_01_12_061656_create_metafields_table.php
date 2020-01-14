@@ -15,6 +15,11 @@ class CreateMetafieldsTable extends Migration
     {
         Schema::create('metafields', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')
+                    ->references('id')->on('accounts')
+                    ->onDelete('cascade');
+
             $table->morphs('metaable');	
             $table->string('meta_key');
             $table->enum('meta_type', ['string', 'integer', 'float', 'boolean', 'array', 'object', 'resource', 'NULL']);
