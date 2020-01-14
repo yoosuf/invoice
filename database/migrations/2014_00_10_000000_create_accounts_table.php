@@ -20,6 +20,24 @@ class CreateAccountsTable extends Migration
             $table->boolean('is_demo')->default(false);
             $table->timestamps();
         });
+
+
+
+        Schema::create('team', function (Blueprint $table) {
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('owner_id')
+                    ->references('id')->on('accounts')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            $table->unsignedBigInteger('person_id');
+            $table->foreign('person_id')
+                    ->references('id')->on('people')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            $table->enum('role', ['owner', 'admin', 'member', 'user']);
+            $table->timestamp('created_at');
+        });   
+        
     }
 
     /**
